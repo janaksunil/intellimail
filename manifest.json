@@ -1,0 +1,28 @@
+{
+  "name": "Intellimail",
+  "description": "Let AI write your emails for you",
+  "version": "1.3",
+  "manifest_version": 3,
+  "icons": {
+    "48": "assets/imlogo.png",
+    "72": "assets/imlogo.png",
+    "96": "assets/imlogo.png",
+    "144": "assets/imlogo.png"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Generate emails"
+  },
+  "background": {
+    "service_worker": "scripts/contextMenuServiceWorker.js"
+  },
+  "permissions": ["contextMenus"],
+  "host_permissions": ["https://mail.google.com/*"],
+
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["scripts/content.js", "scripts/button.js"]
+    }
+  ]
+}
