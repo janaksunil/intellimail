@@ -22,7 +22,8 @@ const insert = (content) => {
   const splitContent = content.split("\n");
 
   if (splitContent.length === 1) {
-    element.textContent = "generating...";
+    // element.textContent = "generating...";
+    element.textContent = "";
   } else {
     element.textContent = splitContent[2];
     splitContent.splice(2, 1);
