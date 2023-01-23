@@ -58,13 +58,13 @@ const generateCompletionAction = async (info) => {
   }
 };
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
-    id: "context-run",
-    title: "Generate email",
-    contexts: ["selection"],
-  });
-});
+// chrome.runtime.onInstalled.addListener(() => {
+//   chrome.contextMenus.create({
+//     id: "context-run",
+//     title: "Generate email",
+//     contexts: ["selection"],
+//   });
+// });
 
 // Add listener
 chrome.runtime.onInstalled.addListener(function (object) {
@@ -74,6 +74,13 @@ chrome.runtime.onInstalled.addListener(function (object) {
     chrome.tabs.create({ url: externalUrl }, function (tab) {
       console.log("New tab launched with intellimail signup page");
     });
+  }
+});
+
+chrome.runtime.onMessage.addListener(async (request) => {
+  if (request.text != null) {
+    const info = { selectionText: request.text };
+    generateCompletionAction(info);
   }
 });
 

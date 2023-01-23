@@ -22,7 +22,14 @@
   "content_scripts": [
     {
       "matches": ["https://mail.google.com/*"],
-      "js": ["scripts/content.js"]
+      "js": ["scripts/content.js"],
+      "css": ["css/content.css"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/imlogo.png"],
+      "matches": ["https://mail.google.com/*"]
     }
   ]
 }
