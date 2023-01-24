@@ -22,8 +22,7 @@ const insert = (content) => {
   const splitContent = content.split("\n");
 
   if (splitContent.length === 1) {
-    // element.textContent = "generating...";
-    element.textContent = "";
+    element.textContent = "Your email is being crafted by IntelliMail...";
   } else {
     element.textContent = splitContent[2];
     splitContent.splice(2, 1);
@@ -42,6 +41,8 @@ const insert = (content) => {
 
       // Insert into HTML one at a time
       element.appendChild(p);
+      document.getElementById("generate-button").style.top =
+        LAST_ACTIVE_EL.offsetHeight + 18 + "px";
     });
   }
 
@@ -90,7 +91,13 @@ const createButton = async () => {
 
   // Add onclick event
   button.addEventListener("click", () => {
-    generateEmail();
+    const text = LAST_ACTIVE_EL.innerText;
+    if (text.length === 1) {
+      LAST_ACTIVE_EL.innerText =
+        "Please enter some context you would like IntelliMail to expand upon";
+    } else {
+      generateEmail();
+    }
   });
 
   // Append button to parent of input
@@ -165,6 +172,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     sendResponse({ status: "success" });
-    if (content !== "generating...") setButtonLoaded();
+    if (content !== "Your email is being crafted by IntelliMail...")
+      setButtonLoaded();
   }
 });

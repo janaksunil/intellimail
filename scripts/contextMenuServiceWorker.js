@@ -42,7 +42,7 @@ const generate = async (prompt) => {
 
 const generateCompletionAction = async (info) => {
   try {
-    sendMessage("generating...");
+    sendMessage("Your email is being crafted by IntelliMail...");
 
     const { selectionText } = info;
     console.log("info is:", info);
@@ -84,4 +84,4 @@ chrome.runtime.onMessage.addListener(async (request) => {
   }
 });
 
-chrome.contextMenus.onClicked.addListener(generateCompletionAction);
+// chrome.contextMenus.onClicked.addListener(generateCompletionAction);

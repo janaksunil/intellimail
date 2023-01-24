@@ -1,5 +1,4 @@
 .generate-button {
-  /* background: #198efc; */
   background: #1a73e8;
   border-radius: 100px;
   color: white;
@@ -15,8 +14,7 @@
 }
 
 .generate-button:hover {
-  background: #1150a2;
-  box-shadow: 0 0 0px 3px #dedede;
+  background: #1463ca;
 }
 
 .generate-button:focus {
