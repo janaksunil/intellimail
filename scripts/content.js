@@ -13,22 +13,45 @@ const insert = (content) => {
     "Am Al editable LW-avf tS-tW"
   );
 
+  const subElements = document.getElementsByClassName("aoT");
+
+  if (subElements.length === 0) {
+    return;
+  }
+
   if (elements.length === 0) {
     return;
   }
 
   const element = elements[0];
 
+  const subElement = subElements[0];
   const splitContent = content.split("\n");
 
   if (splitContent.length === 1) {
-    element.textContent = "Your email is being crafted by IntelliMail...";
+    if (splitContent[0] === "Your email is being crafted by IntelliMail...") {
+      element.textContent = "Your email is being crafted by IntelliMail...";
+    } else if (
+      splitContent[0] ===
+      "TypeError: Cannot read properties of undefined (reading 'pop')"
+    ) {
+      element.textContent =
+        "We're experiencing an API outage at the moment. Try again in some time.";
+    }
   } else {
-    element.textContent = splitContent[2];
-    splitContent.splice(2, 1);
+    console.log(splitContent);
+    subElement.value = splitContent[2].slice(9);
+
+    element.textContent = splitContent[4];
+    // splitContent.splice(2, 1);
     splitContent.splice(0, 1);
     splitContent.splice(0, 1);
-    splitContent.splice(splitContent.length - 1, 1);
+    splitContent.splice(0, 1);
+    splitContent.splice(0, 1);
+    splitContent.splice(0, 1);
+
+    // splitContent.splice(0, 1);
+    // splitContent.splice(splitContent.length - 1, 1);
     splitContent.forEach((content) => {
       const p = document.createElement("div");
 
@@ -51,8 +74,6 @@ const insert = (content) => {
   // splitContent.splice(0, 1);
   // splitContent.splice(0, 1);
   // splitContent.splice(splitContent.length - 1, 1);
-
-  console.log(splitContent);
 
   // Wrap in p tags
 

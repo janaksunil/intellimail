@@ -16,6 +16,9 @@ const sendMessage = (content) => {
 };
 
 const generate = async (prompt) => {
+  // mixpanel.track("Generation", {
+  //   source: "Intellimail extension",
+  // });
   // Get your API key from storage
   const key = "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";
   const url = "https://api.openai.com/v1/completions";
@@ -28,6 +31,7 @@ const generate = async (prompt) => {
       Authorization: `Bearer ${key}`,
     },
     body: JSON.stringify({
+      // model: "text-davinci-003",
       model: "text-davinci-003",
       prompt: prompt,
       max_tokens: 1250,
@@ -46,7 +50,7 @@ const generateCompletionAction = async (info) => {
 
     const { selectionText } = info;
     console.log("info is:", info);
-    const basePromptPrefix = `Write an email expanding upon the given points. Don't include a subject. Here are the points: `;
+    const basePromptPrefix = `Write an email expanding upon the given points. Include a subject. Here are the points: `;
     const baseCompletion = await generate(
       `${basePromptPrefix}${selectionText}`
     );
