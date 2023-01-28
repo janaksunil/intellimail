@@ -1,6 +1,12 @@
 // to capture current active element
 var LAST_ACTIVE_EL = null;
 
+var script = document.createElement("script");
+script.src = "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";
+document.head.appendChild(script);
+
+// mixpanel.init("011303192c35cf0dd9a760c6b00994a1");
+
 // to show icon automatically
 const getAllEditable = () => {
   return document.querySelectorAll("div[contenteditable=true]");
@@ -117,6 +123,7 @@ const createButton = async () => {
       LAST_ACTIVE_EL.innerText =
         "Please enter some context you would like IntelliMail to expand upon";
     } else {
+      // mixpanel.track("Button clicked");
       generateEmail();
     }
   });
