@@ -6,6 +6,38 @@ const getAllEditable = () => {
   return document.querySelectorAll("div[contenteditable=true]");
 };
 
+const typeText = (element, text) => {
+  let count = 0;
+
+  let interval = setInterval(() => {
+    if (count < text.length) {
+      if (text[count] == "|") {
+        element.innerHTML += "<br>";
+        element.innerHTML += "<br>";
+        count++;
+      } else {
+        element.innerHTML += text[count];
+        count++;
+      }
+    } else {
+      clearInterval(interval);
+    }
+  }, 5);
+};
+
+const typeSubject = (element, text) => {
+  let count = 0;
+
+  let interval = setInterval(() => {
+    if (count < text.length) {
+      element.value += text[count];
+      count++;
+    } else {
+      clearInterval(interval);
+    }
+  }, 5);
+};
+
 const insert = (content) => {
   // let re = /^Am Al editable LW-avf/;
   LAST_ACTIVE_EL.focus();
@@ -40,33 +72,30 @@ const insert = (content) => {
     }
   } else {
     console.log(splitContent);
-    subElement.value = splitContent[2].slice(9);
 
-    element.textContent = splitContent[4];
-    // splitContent.splice(2, 1);
-    splitContent.splice(0, 1);
+    //types out the subject
+    subjectline = splitContent[2].slice(9);
+    subElement.value = "";
+    typeSubject(subElement, subjectline);
+
     splitContent.splice(0, 1);
     splitContent.splice(0, 1);
     splitContent.splice(0, 1);
     splitContent.splice(0, 1);
 
-    // splitContent.splice(0, 1);
-    // splitContent.splice(splitContent.length - 1, 1);
-    splitContent.forEach((content) => {
-      const p = document.createElement("div");
-
-      if (content === "") {
-        const br = document.createElement("br");
-        p.appendChild(br);
-      } else {
-        p.textContent = content;
+    //formats content for typing
+    for (let i = 0; i < splitContent.length; i++) {
+      if (splitContent[i] == "") {
+        splitContent[i] = "|";
       }
+    }
 
-      // Insert into HTML one at a time
-      element.appendChild(p);
-      document.getElementById("generate-button").style.top =
-        LAST_ACTIVE_EL.offsetHeight + 18 + "px";
-    });
+    //types out the  main email text
+    var joined = splitContent.join(" ");
+    setTimeout(() => {
+      element.textContent = "";
+      typeText(element, joined);
+    }, subjectline.length * 20);
   }
 
   // element.textContent = splitContent[2];
@@ -130,7 +159,27 @@ const generateEmail = async () => {
   LAST_ACTIVE_EL.focus();
   setButtonLoading();
   var text = LAST_ACTIVE_EL.innerText;
+  //setLoader();
   chrome.runtime.sendMessage({ text });
+};
+
+const setLoader = () => {
+  const element = document.getElementsByClassName(
+    "Am Al editable LW-avf tS-tW"
+  )[0];
+
+  element.contentEditable = false;
+
+  element.innerHTML = "      ";
+
+  const loader = document.createElement("div");
+  loader.innerHTML = `
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>`;
+  loader.classList.add("loader");
+
+  element.appendChild(loader);
 };
 
 const setButtonLoading = () => {
