@@ -11,7 +11,7 @@ const typeText = (element, text) => {
 
   let interval = setInterval(() => {
     if (count < text.length) {
-      if (text[count] == "|") {
+      if (text[count] === "|") {
         element.innerHTML += "<br>";
         element.innerHTML += "<br>";
         count++;
@@ -139,16 +139,26 @@ const createButton = async () => {
   img.style.pointerEvents = "none";
   button.appendChild(img);
 
-  // Add onclick event
   button.addEventListener("click", () => {
-    const text = LAST_ACTIVE_EL.innerText;
-    if (text.length === 1) {
-      LAST_ACTIVE_EL.innerText =
-        "Please enter some context you would like IntelliMail to expand upon";
-    } else {
-      // mixpanel.track("Button clicked");
-      generateEmail();
-    }
+    // console.log(chrome.storage.local.get("hasRegistered"));
+    chrome.storage.local.get('hasRegistered', function (result) {
+        // console.log('Value currently is ' + result.hasRegistered);
+      if (result.hasRegistered === "false") {
+        location.href = "https://airtable.com/shrwhYNbbwUGfRlu5";
+      }
+      else {
+        const text = LAST_ACTIVE_EL.innerText;
+        if (text.length === 1) {
+          LAST_ACTIVE_EL.innerText =
+              "Please enter some context you would like IntelliMail to expand upon";
+        } else {
+          // mixpanel.track("Button clicked");
+          generateEmail();
+        }
+      }
+    });
+    // Append button to parent of input
+    LAST_ACTIVE_EL.parentNode.appendChild(button);
   });
 
   // Append button to parent of input

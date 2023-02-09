@@ -16,14 +16,18 @@
   "background": {
     "service_worker": "scripts/contextMenuServiceWorker.js"
   },
-  "permissions": [],
-  "host_permissions": ["https://mail.google.com/*"],
+  "permissions": ["storage"],
+  "host_permissions": ["https://mail.google.com/*", "https://airtable.com/shrwhYNbbwUGfRlu5"],
 
   "content_scripts": [
     {
       "matches": ["https://mail.google.com/*"],
       "js": ["scripts/content.js"],
       "css": ["css/content.css"]
+    },
+    {
+      "matches": ["https://airtable.com/shrwhYNbbwUGfRlu5"],
+      "js": ["scripts/airtable.js"]
     }
   ],
   "web_accessible_resources": [
