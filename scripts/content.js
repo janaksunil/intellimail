@@ -141,8 +141,11 @@ const createButton = async () => {
 
   button.addEventListener("click", () => {
     // console.log(chrome.storage.local.get("hasRegistered"));
+    if(chrome.storage.local.get("hasRegistered") === null || chrome.storage.local.get("hasRegistered") === "undefined"){
+        chrome.storage.local.set({'hasRegistered': "false"});
+    }
     chrome.storage.local.get('hasRegistered', function (result) {
-        // console.log('Value currently is ' + result.hasRegistered);
+      // console.log('Value currently is ' + result.hasRegistered);
       if (result.hasRegistered === "false") {
         location.href = "https://airtable.com/shrwhYNbbwUGfRlu5";
       }
