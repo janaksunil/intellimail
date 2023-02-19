@@ -77,6 +77,7 @@ chrome.runtime.onInstalled.addListener(function (object) {
   let externalUrl = "https://airtable.com/shrwhYNbbwUGfRlu5";
 
   if (object.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+    chrome.storage.local.set({ hasRegistered: "false" });
     chrome.tabs.create({ url: externalUrl }, function (tab) {
       console.log("New tab launched with intellimail signup page");
     });
