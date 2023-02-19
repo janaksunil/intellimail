@@ -54,3 +54,34 @@
     transform: rotate(360deg);
   }
 }
+
+/* Loader CSS */
+
+.loader {
+  margin-left: 5px;
+}
+
+.loader .dot {
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: rgb(103, 103, 103);
+  margin: 0 2px;
+}
+
+@keyframes dot-animation {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.loader .dot {
+  animation: dot-animation 1s infinite;
+}

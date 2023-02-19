@@ -23,6 +23,8 @@ const generate = async (prompt) => {
   const key = "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";
   const url = "https://api.openai.com/v1/completions";
 
+  console.log("generating completion...");
+
   // Call completions endpoint
   const completionResponse = await fetch(url, {
     method: "POST",
@@ -50,7 +52,7 @@ const generateCompletionAction = async (info) => {
 
     const { selectionText } = info;
     console.log("info is:", info);
-    const basePromptPrefix = `Write an email expanding upon the given points. Include a subject. Here are the points: `;
+    const basePromptPrefix = `Write an email expanding upon the given points. Include a subject. Write in the language of the prompt. Here are the points: `;
     const baseCompletion = await generate(
       `${basePromptPrefix}${selectionText}`
     );
