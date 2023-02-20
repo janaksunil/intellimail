@@ -150,7 +150,8 @@ const createButton = async () => {
     chrome.storage.local.get("hasRegistered", function (result) {
       // console.log('Value currently is ' + result.hasRegistered);
       if (result.hasRegistered === "false") {
-        location.href = "https://airtable.com/shrwhYNbbwUGfRlu5";
+        alert("You haven't signed up for IntelliMail yet! Click OK to sign up.");
+        window.open("https://airtable.com/shrwhYNbbwUGfRlu5");
       } else {
         const text = LAST_ACTIVE_EL.innerText;
         if (text.length === 1) {
