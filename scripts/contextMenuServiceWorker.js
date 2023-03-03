@@ -20,7 +20,7 @@ const generate = async (prompt) => {
   //   source: "Intellimail extension",
   // });
   // Get your API key from storage
-  const key = "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";
+  const key = "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";
   const url = "https://api.openai.com/v1/completions";
 
   console.log("generating completion...");
@@ -52,7 +52,7 @@ const generateCompletionAction = async (info) => {
 
     const { selectionText } = info;
     console.log("info is:", info);
-    const basePromptPrefix = `Write an email expanding upon the given points. Include a subject. Write in the language of the prompt. Here are the points: `;
+    const basePromptPrefix = `Write an email expanding only upon the given points. Include a subject. Write in the language of the prompt. Here are the points: `;
     const baseCompletion = await generate(
       `${basePromptPrefix}${selectionText}`
     );
@@ -77,7 +77,7 @@ chrome.runtime.onInstalled.addListener(function (object) {
   let externalUrl = "https://airtable.com/shrwhYNbbwUGfRlu5";
 
   if (object.reason === chrome.runtime.OnInstalledReason.INSTALL) {
-    chrome.storage.local.set({ hasRegistered: "false" });
+    // chrome.storage.local.set({ hasRegistered: "false" });
     chrome.tabs.create({ url: externalUrl }, function (tab) {
       console.log("New tab launched with intellimail signup page");
     });
@@ -91,4 +91,4 @@ chrome.runtime.onMessage.addListener(async (request) => {
   }
 });
 
-// chrome.contextMenus.onClicked.addListener(generateCompletionAction);
+chrome.runtime.setUninstallURL("https://airtable.com/shrWWY1fhalsBBDz1");

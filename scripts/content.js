@@ -1,6 +1,18 @@
 // to capture current active element
 var LAST_ACTIVE_EL = null;
 
+var ga = document.createElement("script");
+ga.type = "text/javascript";
+ga.async = true;
+ga.src = "http://www.google-analytics.com/ga.js";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(ga, s);
+
+var _gaq = _gaq || [];
+_gaq.push(["_setAccount", "356026393"]);
+
+// _gaq.push(["_trackEvent", "CATEGORY", "ACTION", "LABEL"]);
+
 // to show icon automatically
 const getAllEditable = () => {
   return document.querySelectorAll("div[contenteditable=true]");
@@ -35,10 +47,11 @@ const typeSubject = (element, text) => {
     } else {
       clearInterval(interval);
     }
-  }, 5);
+  }, 2);
 };
 
 const insert = (content) => {
+  _gaq.push(["_trackEvent", "CATEGORY", "ACTION", "LABEL"]);
   // let re = /^Am Al editable LW-avf/;
   LAST_ACTIVE_EL.focus();
   const elements = document.getElementsByClassName(
@@ -90,6 +103,8 @@ const insert = (content) => {
       }
     }
 
+    // _gaq.push(["_trackEvent", "CATEGORY", "ACTION", "LABEL"]);
+
     //types out the  main email text
     var joined = splitContent.join(" ");
     setTimeout(() => {
@@ -97,29 +112,6 @@ const insert = (content) => {
       typeText(element, joined);
     }, subjectline.length * 20);
   }
-
-  // element.textContent = splitContent[2];
-  // splitContent.splice(2, 1);
-  // splitContent.splice(0, 1);
-  // splitContent.splice(0, 1);
-  // splitContent.splice(splitContent.length - 1, 1);
-
-  // Wrap in p tags
-
-  // splitContent.forEach((content) => {
-  // const p = document.createElement("div");
-
-  //   if (content != "") {
-  //     p.textContent = content;
-  //   }
-  //   element.appendChild(p);
-  // });
-  // const p = document.createElement("div");
-  // p.className = "Am Al editable LW-avf tS-tW";
-  // p.ariaLabel = "Message Body";
-  // p.id = ":1br";
-  // p.textContent = content;
-  // element.appendChild(p);
 
   return true;
 };
@@ -141,32 +133,29 @@ const createButton = async () => {
 
   button.addEventListener("click", () => {
     // console.log(chrome.storage.local.get("hasRegistered"));
-    if (
-      chrome.storage.local.get("hasRegistered") === null ||
-      chrome.storage.local.get("hasRegistered") === "undefined"
-    ) {
-      chrome.storage.local.set({ hasRegistered: "false" });
+    // if (
+    //   chrome.storage.local.get("hasRegistered") === null ||
+    //   chrome.storage.local.get("hasRegistered") === "undefined"
+    // ) {
+    //   chrome.storage.local.set({ hasRegistered: "false" });
+    // }
+    // chrome.storage.local.get("hasRegistered", function (result) {
+    //   // console.log('Value currently is ' + result.hasRegistered);
+    //   if (result.hasRegistered === "false") {
+    //     alert(
+    //       "You haven't signed up for IntelliMail yet! Click OK to sign up."
+    //     );
+    //     window.open("https://airtable.com/shrwhYNbbwUGfRlu5");
+    //   } else {
+    const text = LAST_ACTIVE_EL.innerText;
+    if (text.length === 1) {
+      LAST_ACTIVE_EL.innerText =
+        "Please enter some context you would like IntelliMail to expand upon";
+    } else {
+      // mixpanel.track("Button clicked");
+      generateEmail();
     }
-    chrome.storage.local.get("hasRegistered", function (result) {
-      // console.log('Value currently is ' + result.hasRegistered);
-      if (result.hasRegistered === "false") {
-        alert("You haven't signed up for IntelliMail yet! Click OK to sign up.");
-        window.open("https://airtable.com/shrwhYNbbwUGfRlu5");
-      } else {
-        const text = LAST_ACTIVE_EL.innerText;
-        if (text.length === 1) {
-          LAST_ACTIVE_EL.innerText =
-            "Please enter some context you would like IntelliMail to expand upon";
-        } else {
-          // mixpanel.track("Button clicked");
-          generateEmail();
-        }
-      }
-    });
-    // Append button to parent of input
-    LAST_ACTIVE_EL.parentNode.appendChild(button);
   });
-
   // Append button to parent of input
   LAST_ACTIVE_EL.parentNode.appendChild(button);
 };
