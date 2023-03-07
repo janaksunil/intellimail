@@ -1,16 +1,6 @@
 // to capture current active element
 var LAST_ACTIVE_EL = null;
 
-var ga = document.createElement("script");
-ga.type = "text/javascript";
-ga.async = true;
-ga.src = "http://www.google-analytics.com/ga.js";
-var s = document.getElementsByTagName("script")[0];
-s.parentNode.insertBefore(ga, s);
-
-var _gaq = _gaq || [];
-_gaq.push(["_setAccount", "356026393"]);
-
 // _gaq.push(["_trackEvent", "CATEGORY", "ACTION", "LABEL"]);
 
 // to show icon automatically
@@ -51,7 +41,7 @@ const typeSubject = (element, text) => {
 };
 
 const insert = (content) => {
-  _gaq.push(["_trackEvent", "CATEGORY", "ACTION", "LABEL"]);
+  // _gaq.push(["_trackEvent", "CATEGORY", "ACTION", "LABEL"]);
   // let re = /^Am Al editable LW-avf/;
   LAST_ACTIVE_EL.focus();
   const elements = document.getElementsByClassName(
@@ -71,6 +61,7 @@ const insert = (content) => {
   const element = elements[0];
 
   const subElement = subElements[0];
+  console.log(content);
   const splitContent = content.split("\n");
 
   if (splitContent.length === 1) {
