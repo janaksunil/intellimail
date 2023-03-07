@@ -1,7 +1,7 @@
 {
   "name": "IntelliMail",
   "description": "Your AI email assistant",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "manifest_version": 3,
   "icons": {
     "48": "assets/imlogo.png",

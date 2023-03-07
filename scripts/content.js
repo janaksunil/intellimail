@@ -110,8 +110,8 @@ const insert = (content) => {
 const createButton = async () => {
   // Create button
   const button = document.createElement("button");
-  button.style.top = LAST_ACTIVE_EL.offsetHeight + "px";
-  button.style.left = "0px";
+  button.style.top = "43px";
+  button.style.right = "7px";
   button.style.zIndex = 1000;
   button.id = "generate-button";
   button.classList.add("generate-button");
