@@ -110,9 +110,12 @@ const sendMessage = (content) => {
   });
 };
 
+
+require('dotenv').config();
+
 const generate = async (prompt) => {
   // Get your API key from storage
-  const key = "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";
+  const key = process.env.OPENAI_API_KEY;
   const url = "https://api.openai.com/v1/chat/completions";
 
   console.log("generating completion...");
